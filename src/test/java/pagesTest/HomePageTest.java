@@ -6,11 +6,18 @@ import baseUtil.BaseClass;
 
 public class HomePageTest extends BaseClass {
 	
-	@Test 
+	@Test (enabled = true)
 	public void clickLogoTest() throws InterruptedException {
 		homePage.clickLogo();
+	}
+	
+	@Test(priority = 1)
+	public void clickLoginTest() throws InterruptedException {  
+		homePage.clicklogin();
+		
 	}
 	
 	
 
 }
+
