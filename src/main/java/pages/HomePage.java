@@ -24,7 +24,9 @@ public class HomePage {
 	@FindBy(name = "logo-link")
 	WebElement logo;
 	
-	
+	@FindBy (xpath = "//a[@name='login-link']")
+	WebElement login;
+
 	
 	
 	public void clickLogo() throws InterruptedException {
@@ -34,6 +36,14 @@ public class HomePage {
 	
 	}
 
+	public void clicklogin() throws InterruptedException {
+		Thread.sleep(3000);
+		login.click();
+		Thread.sleep(3000);
+	}
+
+	
+	
 	}
 
 
