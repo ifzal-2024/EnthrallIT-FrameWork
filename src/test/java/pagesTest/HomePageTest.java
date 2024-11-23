@@ -17,7 +17,16 @@ public class HomePageTest extends BaseClass {
 		
 	}
 	
+	@Test
+	public void clickHomeTest() {
+		homePage.clickHome();
+	}
 	
+@Test
+public void userEmailInputTest () {
+	homePage.userEmailInput();
+}
 
+	
 }
 
