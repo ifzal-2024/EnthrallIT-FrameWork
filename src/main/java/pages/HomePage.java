@@ -1,6 +1,7 @@
 package pages;
-
 // EnthrallIT HomePage
+
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -68,5 +69,7 @@ public class HomePage {
 		
 	
 	}
+	
+	// LinkText and Partial LinkText not available on EnthrallIT Web Page
 	
 }
