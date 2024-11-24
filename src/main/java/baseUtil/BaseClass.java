@@ -44,7 +44,23 @@ public class BaseClass {
 		System.setProperty("webdriver.chrome.driver", "./driver/chromedriver.exe");
 		driver = new ChromeDriver();
 
-		//driver.manage().window().fullscreen();
+		// driver.manage().window().fullscreen();
+
+		// We need to add the WebDriverManager dependency in the pom.xml file
+		// When physical driver absent, or driver is not working, because of version
+		// issue, then you can use WebDriverManager
+		// WebDriverManager doesn't need any physical driver
+		// From below line, the most updated version of Chrome browser will be
+		// initialized, when no version is mentioned
+
+		// WebDriverManager.chromedriver().setup();
+		// driver = new ChromeDriver();
+
+		// WebDriverManager.firefoxdriver().setup();
+		// driver = new FirefoxDriver();
+
+		// WebDriverManager.edgedriver().setup();
+		// driver = new EdgeDriver();
 
 		// maximize method is used to maximize the window ---> mostly used
 		driver.manage().window().maximize();
