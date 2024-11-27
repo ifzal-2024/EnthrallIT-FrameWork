@@ -69,6 +69,7 @@ public class BaseClass {
 		// HTTP cookies are small blocks of data created by a web server while a user is
 		// browsing a website
 		// deleteAllCookies do delete the cookies
+		driver.manage().window().fullscreen();
 		driver.manage().deleteAllCookies();
 
 		// PageLoadTimeout is used for wait to load the page for certain amount of time

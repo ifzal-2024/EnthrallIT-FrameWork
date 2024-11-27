@@ -3,6 +3,7 @@ package pagesTest;
 import org.testng.annotations.Test;
 
 import baseUtil.BaseClass;
+import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 
 public class HomePageTest extends BaseClass {
 	
@@ -27,6 +28,21 @@ public void userEmailInputTest () {
 	homePage.userEmailInput();
 }
 
+@Test
+public void clickPasswordTest () {
+	homePage.clickpassword();
+	
+}
+@Test
+public void ClickHomeCSSTest() {
+	homePage.clickHome();
+	
+}
+
+@Test
+public void ClickEnrollNow() {
+	homePage.ClickEnrollNow();
+}
 	
 }
 
