@@ -34,15 +34,59 @@ public void clickPasswordTest () {
 	
 }
 @Test
-public void ClickHomeCSSTest() {
-	homePage.clickHome();
+public void cSSEnrollNowTest() {
+	homePage.ClickEnrollNowCss();;
 	
+}
+
+// WOrked
+@Test
+public void clickEnrlNowxpaClassCompundTest() {
+	homePage.clickEnrlNowxpaClassCompund();
 }
 
 @Test
 public void ClickEnrollNow() {
 	homePage.ClickEnrollNow();
 }
+	@Test
+public void getMethodsOfThePageTest() {
+		homePage.getMethodsOfThePage();
+	}
 	
-}
+	@Test
+	public void loginValidationTest() {
+		homePage.loginValidation();
+		
+	}
+	
+	
+	@Test
+	public void use_of_getAttribute_method_test () {
+		homePage.use_of_getAttribute_method();
+	}
+
+	@Test
+	public void use_of_clear_in_login_test() {
+		homePage.use_of_enterKey_in_login();
+	}
+	
+	
+	@Test
+	public void enrollNowInnerTest() {
+		homePage.enrollNowInner();
+		
+	}
+	
+	@Test
+	public void use_of_navigate_method_test () {
+		homePage.use_of_navigate_method();
+		
+	}
+	
+
+	
+	}
+	
+
 
