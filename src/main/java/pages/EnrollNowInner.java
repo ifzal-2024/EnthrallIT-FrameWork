@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import io.opentelemetry.sdk.metrics.internal.view.DropAggregation;
+
 
 public class EnrollNowInner {
 	public WebDriver driver;
@@ -100,7 +100,6 @@ public class EnrollNowInner {
 		pause(2000);
 		clickElement(loginSubmitElement);
 		pause(2000);
-		pause(2000);
 		elementDisplayed(automationElement);
 		pause(2000);
 		clickElement(automationElement);
@@ -139,6 +138,10 @@ public class EnrollNowInner {
 		pause(3000);
 	}
 
+	
+	
+	
+	
 	public void enrollNowInnerFillForm() {
 		validateEnrollNowInnerPage();
 		pause(2000);
@@ -148,13 +151,11 @@ public class EnrollNowInner {
 		pause(2000);
 		inputTextThenClickTab(lastName, "Smith");
 		pause(2000);
-		elementSelected(selectProfession);
-		pause(2000);
 		selectElelementFromDropdownOnebyOne(selectProfession, selectProfessionList);
 		pause(2000);
 		selectDropdown(selectProfession, "a Student");
 		pause(2000);
-		elementSelected(selectCourse);
+		elementSelected(selectProfession);
 		pause(2000);
 		selectDropdown(selectCourse, "Python");
 		pause(2000);

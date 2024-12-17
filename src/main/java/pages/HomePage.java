@@ -1,8 +1,9 @@
 package pages;
-// EnthrallIT HomePage
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.By.ByXPath;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +12,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import com.aventstack.extentreports.model.SystemEnvInfo;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+
 import static common.CommonActions.*;
 
 import java.time.Duration;
@@ -18,8 +22,10 @@ import java.util.List;
 
 import javax.xml.xpath.XPath;
 
+//EnthrallIT HomePage
 public class HomePage {
 	public WebDriver driver;
+	Dimension dimension;
 
 	// parameterized constructor initialized when class in instantiated [object
 	// created]
@@ -181,8 +187,7 @@ public class HomePage {
 		pause(3000);
 	}
 
-	// In real time scenario we do below test at the beginning of a page,
-	// but by using common action, not by following below codes
+	//Use of Assertion
 	public void getMethodsOfThePage() {
 		String actual = driver.getTitle();
 		System.out.println("Title of the Page is: " + actual); // this line is not necessary
@@ -199,7 +204,7 @@ public class HomePage {
 
 		// use of getText() in "login button"
 		String actualTextPresntInTheWebElement = login.getText();
-		System.out.println("Text Present as: " + actualTextPresntInTheWebElement);
+		System.out.println("Text Present as in Login ---> : " + actualTextPresntInTheWebElement);
 		String expectedTextPresntInTheWebElement = "Login";
 		Assert.assertEquals(actualTextPresntInTheWebElement, expectedTextPresntInTheWebElement,
 				"The text present in the WebElement doesn't match");
@@ -256,9 +261,24 @@ public class HomePage {
 		pause(3000);
 		clearTextFromTheField(passwordCSSElement); // new here
 		pause(3000);
-		inputTextThenClickEnter(passwordCSSElement, "Ifzal2024$"); // Send Keys + Keys.enter
-		pause(3000);
+		inputTextThenClickEnter(passwordCSSElement, "Ifzal2024$"); // Send Keys + Keys.enter TODO : Able to Login Directly
+		pause(5000);
 
+	}
+	
+	//Login USing JavascriptExecutor
+	//Use javascriptExecutor for click and sendKeys
+	public void login_by_javaScript() {
+		elementDisplayed(login);
+		clickUsingJavascriptExecutor(driver, login);
+		pause(1000);
+		inputTextUsingJavascriptExecutor(driver, "arguments[0].value='ifzal.java2024@gmail.com' ", userEmailElement);
+		pause(3000);
+		inputTextUsingJavascriptExecutor(driver, "arguments[0].value='Ifzal2024$' ", passwordCSSElement);
+		pause(2000);
+		clickUsingJavascriptExecutor(driver, loginSubmitElement);
+		pause(2000);
+		
 	}
 
 	public void use_of_navigate_method() { // navigate().back(), navigate().forward(),navigate().refrresh()
@@ -315,5 +335,48 @@ public class HomePage {
 		pause(2000);
 
 	}
+	
+	public void firstName() {
+		driver.get("https://enthrallit.com/course/dashboard/enrolls/");
+	pause(3000);
+	
+	}
+	
+	//USe of Hover over, Navigate , Dimensions
+	public void pennEnrollment() { // HoverOver, Navigate, verifyUrl, 
+		pause(2000);
+		driver.navigate().to("https://www.enrollnow.net/en");
+		pause(2000);
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20)); 
+		driver.manage().window().fullscreen();
+		WebElement choose=driver.findElement(By.xpath("//span[text()='Choose']"));
+		choose.isDisplayed();
+		Actions actions = new Actions(driver);
+		actions.moveToElement(choose).build().perform();
+		pause(10000);
+		driver.findElement(By.xpath("//a[text()='Find a hospital']")).click();
+		pause(3000);
+	verifyCurrentUrl(driver,"https://www.enrollnow.net/en/find-hospital");
+		pause(2000);
+		driver.findElement(By.xpath("//p[text()='Enroll in or change a health plan, or check your case']")).click();
+		pause(2000);
+		driver.findElement(By.xpath("//u[text()='Get started']")).click();
+		pause(5000);
+	}
+	
+	//Use of Dimension class
+	public void set_specific_size_for_window() {
+		pause(3000);
+		System.out.println("The size of the Enthrall screen is: " + driver.manage().window().getSize());
+		dimension=new Dimension(900, 600);
+		driver.manage().window().setSize(dimension);
+		pause(5000);
+		System.out.println("The new set size for Enthrall Screen is: "+ driver.manage().window().getSize());
+		
+	}
+	
+	
+		
 
 }
