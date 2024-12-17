@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 
 import org.testng.Reporter;
 
+import com.aventstack.extentreports.Status;
+
 public class Loggers {
 	// Why below line is static?
 		// this is used inside static method, non static variable cannot be called inside static method
@@ -15,6 +17,7 @@ public class Loggers {
 		public static void logTheTest(String msg) {
 			logger.log(Level.INFO, msg);  // it helps to print in console
 			Reporter.log(msg + "<br>");  // for testng report as index.html
+			TestManager.getTest().log(Status.INFO, msg);
 		}
 		
 }

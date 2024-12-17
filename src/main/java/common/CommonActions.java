@@ -1,19 +1,32 @@
 package common;
-//Common Actions EnthrallIt
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 // CommonActions EnthrallIT
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+import com.google.common.io.Files;
+
+import constants.Attribute;
 import reports.Loggers;
 
+
+//Common Actions EnthrallIt
 public class CommonActions {
 	WebDriver driver;
 	
@@ -269,13 +282,128 @@ public class CommonActions {
 					}
 					
 					
+								
+					
+					public static void clickUsingJavascriptExecutor(WebDriver driver, WebElement element) {
+						// JavascriptExecutor js = (JavascriptExecutor)driver; // instead of writing this 'js' object
+						// we can write below way, (JavascriptExecutor)driver is "js"
+						//Car car =new Car() 
+						//Car() can call methods too.. Car().name()
+						// You have to type JavascriptExecutor to import org.openqa.selenium.JavascriptExecutor;
+						// "arguments[0].click()", will be same for everyone, Thats why we kept it that way.
+						// Or we can below method which has been commented out
+						((JavascriptExecutor)driver).executeScript("arguments[0].click()", element);
+						Loggers.logTheTest("JavascriptExecutor executing ..." + " arguments[0].click()" + " to click on element ---> " + element);
+					}
+					
+					
+					//public static void clickUsingJavascriptExecutorScript(WebDriver driver,String script, WebElement element) {
+					//	((JavascriptExecutor)driver).executeScript(script, element);
+						//Loggers.logTheTest("JavascriptExecutor executing ..." + " arguments[0].click()" + " to click on element ---> " + element);
+					//}
 					
 					
 					
+					public static void inputTextUsingJavascriptExecutor(WebDriver driver, String script, WebElement element) {
+						//We wrote below way because script="arguments[0].value='August 2024 QA' " will be different for different users
+						//script : String from PopUP
+						
+						((JavascriptExecutor) driver).executeScript(script, element);
+						Loggers.logTheTest("JavascriptExecutor executing ..." + script + " to input Text on element ---> " + element);
+					}
 					
 					
+					public static void scrollIntoViewTheElementUsingJavascriptExecutor(WebDriver driver, WebElement element) {
+						((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", element);
+						Loggers.logTheTest("JavascriptExecutor executing ..." + " arguments[0].scrollIntoView(true)" + " to input Text on element ---> " + element);
+					}	
 					
 					
+			
+					// This is for Enthrall IT photo upload common action, not needed for CMS
+					public static void uploadPhotoImage(WebElement element, String location) {
+						File file = new File(location);
+						element.sendKeys(file.getAbsolutePath());
+						pause(4000);
+					}
+					
+					// very very important interview question
+					// TakesScreenshot interface and getScreenshotAs method is used for taking screenshot
+					public static String getSreenShot(String testName, WebDriver driver) {
+						TakesScreenshot ss = (TakesScreenshot) driver;
+						String path = System.getProperty("user.dir") + "/test-output/screenShots";
+						File folder = new File(path);
+						if (!folder.exists()) {
+							folder.mkdirs();
+						}
+
+						Date date = new Date();
+						SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyyyy_hh.mm.ss");
+						String formattedDate = dateFormat.format(date);
+
+						File targetFile = new File(path + "/error_" + testName + "_" + formattedDate + ".png");
+						try {
+							File srcFile = ss.getScreenshotAs(OutputType.FILE);
+							Files.copy(srcFile, targetFile);
+							Loggers.logTheTest("Screenshot has been successfully capture at: \n" + targetFile.getAbsolutePath());
+						} catch (WebDriverException | IOException e) {
+							e.printStackTrace();
+							Loggers.logTheTest("Screenshot cannot be captured");
+						}
+						return targetFile.getAbsolutePath();
+					}
+					
+					// Attribute is coming from package constants, we will check the outcome later
+					// Why String type see next method
+					public static String getAttributeValue(WebElement element, Attribute attribute) {
+						String value = null;
+						try {
+							String atr = attribute.getTheAttribute();
+							value = element.getAttribute(atr);
+							Loggers.logTheTest("Value for the attribute \"" + attribute + "\" in the WebElement " + element + " is executed and receive --> " + value);
+						} catch (NoSuchElementException | NullPointerException e) {
+							e.printStackTrace();
+							Loggers.logTheTest(element + "<----------> has not been found\n" + e.getMessage() );
+							Assert.fail();
+						}			
+						return value;
+					}
+					
+					public static void verifyLengthOfTheFieldContent (WebElement element, Attribute attribute, String expectedLength) {
+						try {
+							String actualLength = getAttributeValue(element, attribute);
+							Loggers.logTheTest("The field " + element + " ---> has Actual Length : " + actualLength + "and Expected Length : " + expectedLength);
+							Assert.assertEquals(actualLength, expectedLength, "Length doesn't match");
+						} catch (NoSuchElementException | NullPointerException e) {
+							e.printStackTrace();
+							Loggers.logTheTest(element + "<----------> has not been found\n" + e.getMessage() );
+							Assert.fail();
+						}
+					}
+					
+					public static void verifyErrorMessageUnderTheField (WebElement element, Attribute attribute, String expectedErrorMessage) {
+						try {
+							String actualErrorMessage = getAttributeValue(element, attribute);
+							Loggers.logTheTest("The Web Element " + element + " ---> has Actual Error Message : " + actualErrorMessage + "and Expected Error Message : " + expectedErrorMessage);
+							Assert.assertEquals(actualErrorMessage, expectedErrorMessage, "Error Message doesn't match");
+						} catch (NoSuchElementException | NullPointerException e) {
+							e.printStackTrace();
+							Loggers.logTheTest(element + "<----------> has not been found\n" + e.getMessage() );
+							Assert.fail();
+						}
+					}
+					
+					public static void verifyErrorMessageTopOfThePage (WebElement element, Attribute attribute, String expectedErrorMessage) {
+						try {
+							String actualErrorMessage = getAttributeValue(element, attribute) + " is a required field.";
+							Loggers.logTheTest("The Web Element " + element + " ---> has Actual Error Message : " + actualErrorMessage + " and Expected Error Message : " + expectedErrorMessage);
+							Assert.assertEquals(actualErrorMessage, expectedErrorMessage, "Error Message doesn't match");
+						} catch (NoSuchElementException | NullPointerException e) {
+							e.printStackTrace();
+							Loggers.logTheTest(element + "<----------> has not been found\n" + e.getMessage() );
+							Assert.fail();
+						}
+					}
 					
 					
 					

@@ -1,10 +1,11 @@
 package pagesTest;
-//EnthrallIT Test Page
+
 import org.testng.annotations.Test;
 
 import baseUtil.BaseClass;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 
+//EnthrallIT Test Page
 public class HomePageTest extends BaseClass {
 	
 	@Test (enabled = true)
@@ -84,7 +85,27 @@ public void getMethodsOfThePageTest() {
 		
 	}
 	
-
+	@Test
+	public void login_by_javaScript_test() {
+		homePage.login_by_javaScript();
+		
+	}
+	
+	@Test
+	public void firstName_test() {
+		homePage.firstName();
+	}
+	
+	
+	@Test
+	public void pennEnrollmentTest() { 
+		homePage.pennEnrollment();
+	}
+	
+	@Test
+	public void set_specific_size_for_window_test() {
+		homePage.set_specific_size_for_window();
+	}
 	
 	}
 	
