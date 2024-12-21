@@ -149,6 +149,7 @@ public class CommonActions {
 			// This is build ONLY for Enthrall IT
 			// hoverActionElement= HOver 
 			// WebElement element= Enroll Now.
+			// For old Automation Button
 					public static void switchToChildWindow(WebDriver driver, WebElement hoverActionElemnt, WebElement element) {
 						try {
 							Actions actions = new Actions(driver);
@@ -168,6 +169,43 @@ public class CommonActions {
 							Assert.fail();
 						}
 					}
+			
+			
+			// This is build ONLY for Enthrall IT 
+			public static void switchToChildWindow(WebDriver driver, WebElement element) {
+				try {
+					clickElement(element);
+					Set<String> allWindowHandles = driver.getWindowHandles();
+					Loggers.logTheTest("Total Windows Opened: " + allWindowHandles.size());
+					// Extract Parent and child window from all window handles
+					String parent = (String) allWindowHandles.toArray()[0];
+					String child = (String) allWindowHandles.toArray()[1];
+					driver.switchTo().window(child);
+					Loggers.logTheTest(" The Window moved to --> " + child);
+				} catch (NoSuchElementException | NullPointerException e) {
+					e.printStackTrace();
+					Loggers.logTheTest(element + "<----------> has not been found\n" + e.getMessage());
+					Assert.fail();
+				}
+			}
+			
+			
+			// Common Actions for Hover Over
+			public static void mouseHoverAction (WebDriver driver,  WebElement hoverActionElement, WebElement elementNeedTobeClickFinally) {
+				try {
+					Actions actions = new Actions(driver);
+					actions.moveToElement(hoverActionElement).build().perform();
+					pause(3000);
+					clickElement(elementNeedTobeClickFinally);
+					Loggers.logTheTest(elementNeedTobeClickFinally + " has been selected from the mouse hover action ---> ");
+				} catch (NoSuchElementException | NullPointerException e) {
+					e.printStackTrace();
+					Loggers.logTheTest(hoverActionElement + "<----------> has not been found\n" + e.getMessage());
+					Assert.fail();
+				}
+			}
+			
+			
 			
 			
 					public static void validationOfHeader(WebElement element, String expectedHeader) {

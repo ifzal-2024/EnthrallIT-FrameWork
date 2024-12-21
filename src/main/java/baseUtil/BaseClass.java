@@ -24,9 +24,12 @@ import com.aventstack.extentreports.Status;
 
 import common.CommonActions;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import pages.DashBoard;
 import pages.EnrollNowInner;
 import pages.EnrollmentValidation;
 import pages.HomePage;
+import pages.HomePage2;
+import pages.Login;
 import reports.ExtentReportManager;
 import reports.TestManager;
 import utils.Configuration;
@@ -39,6 +42,9 @@ public class BaseClass {
 	
 	public WebDriver driver;
 	public HomePage homePage;
+	public HomePage2 homePage2;
+	public Login login;
+	public DashBoard dashBoard;
   Configuration configuration;
   public EnrollNowInner enrollNowInner;
   ExtentReports extentReports;
@@ -118,6 +124,9 @@ public class BaseClass {
 	
 	public void initClass() {
 		homePage = new HomePage(driver);
+		homePage2=new HomePage2(driver);
+		login = new Login(driver);
+		dashBoard=new DashBoard(driver); 
 		enrollNowInner = new EnrollNowInner(driver);
 		enrollmentValidation= new EnrollmentValidation(driver);
 		

@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import baseUtil.BaseClass;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 
-//EnthrallIT Test Page
+//EnthrallIT HomePageTest 
 public class HomePageTest extends BaseClass {
 	
 	@Test (enabled = true)
