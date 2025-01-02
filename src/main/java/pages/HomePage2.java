@@ -146,7 +146,7 @@ public class HomePage2 {
 	@FindBy(xpath = "//button[text()='×']")
 	WebElement something_swnet_wrong_alert;
 
-	public void homePageValidation() {
+	public void landing_on_homePage() {
 		pause(2000);
 		elementDisplayed(logo);
 		verifyTitle(driver, "Enthrall IT");
